@@ -1,0 +1,50 @@
+* {
+  font-family: "montserrat", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  background: #f1f1f1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.col {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+}
+
+.countdown-col {
+  background-size: auto;
+  background-image: radial-gradient(#1a679b, #071b29);
+}
+
+.img-circular {
+  width: 400px;
+  height: 400px;
+  background-image: url(icon.png);
+  background-size: cover;
+  display: block;
+  border-radius: 200px;
+  -webkit-border-radius: 200px;
+  -moz-border-radius: 200px;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+@media screen and (max-width :900px) {
+  .col {
+    flex: 100%;
+  }
+}
