@@ -8,7 +8,7 @@
     "precommit": "pretty-quick --staged",
     "prepare": "tsc",
     "build": "tsc",
-    "copy": "cp src/index.html build/ && cp src/icon.png build/ && cp src/style.css build/ && src/tmdb_cda_video.json build/",
+    "copy": "cp src/index.html build/ && cp src/icon.png build/ && cp src/style.css build/ && cp src/tmdb_cda_video.json build/",
     "prod": "npm run build; npm run build:lambda; npm run copy",
     "start": "ts-node src/index.ts",
     "start:lambda": "netlify-lambda serve src/lambda",
