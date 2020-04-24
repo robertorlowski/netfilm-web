@@ -1,0 +1,46 @@
+{
+  "name": "netfilm-web",
+  "version": "1.0.0",
+  "description": "A Netlify functions template for Apollo Server GraphQL API with MongoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit": "pretty-quick --staged",
+    "prepare": "tsc",
+    "build": "tsc",
+    "prod": "npm run build; npm run build:lambda",
+    "start": "ts-node src/index.ts",
+    "start:lambda": "netlify-lambda serve src/lambda",
+    "build:lambda": "netlify-lambda build src/lambda"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertorlowski/netfilm-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robertorlowski/netfilm-web/issues"
+  },
+  "homepage": "https://github.com/robertorlowski/netfilm-web#readme",
+  "devDependencies": {
+    "@types/node": "^10.17.21",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
+    "ts-node": "^8.9.0",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "netlify-lambda": "^1.6.3"
+  },
+  "proxy": {
+    "/.netlify/functions": {
+      "target": "http://localhost:9000",
+      "pathRewrite": {
+        "^/\\.netlify/functions": ""
+      }
+    }
+  }
+}

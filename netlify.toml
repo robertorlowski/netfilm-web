@@ -1,0 +1,4 @@
+[build]
+  Functions = "lambda"
+  Command = "npm run prod"
+  publish = "disc"
