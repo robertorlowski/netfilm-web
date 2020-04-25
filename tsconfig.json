@@ -1,10 +1,13 @@
 {
   "compilerOptions": {
-    "outDir": "./build/",
-    "noImplicitAny": true,
-    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "pretty": true,
     "sourceMap": true,
-    "allowJs": true,
-    "lib": ["es2015", "dom"]
-  }
+    "target": "es6",
+    "outDir": "./dist",
+    "baseUrl": "./lib"
+  },
+  "include": ["lib/**/*.ts", "src/fetchMovies.ts"],
+  "exclude": ["node_modules"]
 }
