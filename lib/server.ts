@@ -7,7 +7,7 @@ var https = require("https");
 var http = require("http");
 
 console.log(__dirname);
-/*
+
 var server = https
   .createServer(
     {
@@ -20,10 +20,12 @@ var server = https
   .listen(PORT, () => {
     console.log("Express server listening on port " + PORT);
   });
-*/
+
+/*
 var server = http.createServer(app.express).listen(PORT, () => {
   console.log("Express server listening on port " + PORT);
 });
+*/
 
 process.on("SIGTERM", () => {
   console.info("SIGTERM signal received.");
