@@ -16,7 +16,7 @@ export default async function (req: Request, res: Response, db: any) {
           { backdropPath: { $ne: undefined } },
         ],
       })
-      .sort(category, 1)
+      .sort(category, -1)
       .sort("Id", 1)
       .skip(10 * (page - 1))
       .limit(10)
