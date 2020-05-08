@@ -18,6 +18,7 @@ import { ModalComponent } from "./modal-component/modal-component.component";
 
 const routes: Routes = [
   { path: "movielist/:id", component: MovielistComponent },
+  { path: "**", component: AppComponent },
 ];
 @NgModule({
   declarations: [
