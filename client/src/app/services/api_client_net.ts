@@ -9,7 +9,7 @@ import { HttpClient } from "@angular/common/http";
 @Injectable()
 export class ApiClientNet implements MediaService {
   baseUrl: string = "https://api.themoviedb.org/";
-  netUrl: string = "https://91.192.2.140:9000/";
+  netUrl: string = "https://biuro.pruim.gliwice.pl:9000/";
 
   constructor(private http: HttpClient) {}
 

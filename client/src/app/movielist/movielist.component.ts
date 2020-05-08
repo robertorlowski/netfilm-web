@@ -1,5 +1,4 @@
 import { ModalService } from "./../services/modal.service";
-import { MoviedetailComponent } from "./../moviedetail/moviedetail.component";
 import { ActivatedRoute } from "@angular/router";
 import { AppUtils } from "./../Utils/app_utils";
 import { MediaItem, MediaType } from "./../model/mediaItem.model";
@@ -11,8 +10,6 @@ import {
   OnDestroy,
   ElementRef,
   ViewChild,
-  Output,
-  EventEmitter,
 } from "@angular/core";
 import { ScrollEvent } from "ngx-scroll-event";
 import { Subscription } from "rxjs";
@@ -85,7 +82,6 @@ export class MovielistComponent implements OnInit, OnDestroy {
     if (this.categoryId === NaN || this.isLoading) {
       return;
     }
-    console.log("load");
     this.isLoading = true;
     this.apiProvider
       .getProvider(ProviderType.NET)
