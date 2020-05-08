@@ -1,0 +1,35 @@
+  .button-window {
+    font-size: 13px;
+    color: black;
+    width: 1rem;
+    height: 1rem;
+    text-align: -webkit-center;
+  }
+
+  .button-window:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .button-window-label {
+    top: -1px;
+    left: 0px;
+    position: relative;
+  }
+
+  .section {
+    display: block;
+  }
+
+  #sidebar #s-cont {
+    flex-grow: 1;
+    opacity: 1;
+  }
+
+  #sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100vh;
+  }

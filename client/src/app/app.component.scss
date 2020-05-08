@@ -1,0 +1,24 @@
+#app {
+  position: relative;
+  display: grid;
+  grid-template-areas:
+    "sidebar details "
+    "sidebar content";
+  grid-template-columns: 190px 1fr;
+  grid-template-rows: 320px 1fr;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+#content {
+  grid-area: content;
+  display: flex;
+  position: relative;
+}
+
+#details {
+  grid-area: details;
+  display: flex;
+  position: relative;
+}

@@ -1,0 +1,17 @@
+<div id="sidebar" class="bg-grey-darkest text-white border-r border-backblack pt-4 overflow-auto">
+  <div>
+    <img class="h-28 w-28 rounded-full mx-auto" src="assets/netfilm.png" />
+  </div>
+
+  <section id="s-cont" class="section sidebar-icons clickable pt-4 text-base h-full">
+    <a *ngFor="let item of genres" routerLink="/movielist/{{item.id}}"
+      class="flex items-center px-3 py-1 text-grey cursor-pointer hover:bg-grey-darker no-underline">
+      <fa-icon class="fa" [icon]="faArrowRight"></fa-icon>
+      <div class="ml-2 text-white text-base">{{ item.name }}</div>
+    </a>
+  </section>
+
+  <section id="s-button">
+    <img class="mx-auto pt-2 h-6 mb-4" src="assets/tmdb.png" />
+  </section>
+</div>

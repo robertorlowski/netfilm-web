@@ -1,0 +1,7 @@
+<div id="app" class="font-sans bg-black-darkest">
+  <app-sidebar></app-sidebar>
+  <app-moviedetail id="details" #details></app-moviedetail>
+  <div id="content" class="bg-black overflow-auto" detect-scroll (onScroll)="handleScroll($event)" [bottomOffset]="200">
+    <router-outlet></router-outlet>
+  </div>
+</div>
