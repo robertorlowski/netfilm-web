@@ -1,5 +1,4 @@
 import { AppUtils } from "./../Utils/app_utils";
-import { Genres } from "./genres.model";
 import { Movie } from "./movie.mode";
 import * as moment from "moment";
 
@@ -63,7 +62,6 @@ export class MediaItem {
     vo.genreIds =
       jsonMap["genres"] == null ? [] : (jsonMap["genres"] as number[]);
     vo.movieIds = [];
-    console.log(jsonMap["cdaIds"]);
     vo.movieIds = [];
     if (jsonMap["cdaIds"] !== null) {
       for (let item of jsonMap["cdaIds"]) {

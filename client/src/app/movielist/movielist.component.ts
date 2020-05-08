@@ -105,7 +105,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
         //
         setTimeout(() => {
           if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
-            //this.loadMovie(this.categoryId);
+            this.loadMovie(this.categoryId);
           }
         }, 100);
       });
