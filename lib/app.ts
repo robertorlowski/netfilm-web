@@ -44,8 +44,7 @@ class App {
       const API_KEY: string = "6fdf6ffc-ed77-94fa-407e-a7b86ed9e59d";
       const apiKey = req.get("API-Key");
       if (!apiKey || apiKey !== API_KEY) {
-        //res.status(401).json({ error: "unauthorised" });
-        next();
+        res.status(401).json({ error: "unauthorised" });
       } else {
         next();
       }

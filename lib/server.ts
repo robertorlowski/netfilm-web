@@ -1,12 +1,18 @@
 import app from "./app";
 
-const PORT = 9000;
+const PORT_HTTPS = 9000;
+const PORT_HTTP = 9001;
+
 var fs = require("fs");
 var path = require("path");
 var https = require("https");
 var http = require("http");
 
 console.log(__dirname);
+
+http.createServer(app.express).listen(PORT_HTTP, () => {
+  console.log("Express server listening on port " + PORT_HTTP);
+});
 
 var server = https
   .createServer(
@@ -17,15 +23,9 @@ var server = https
 
     app.express
   )
-  .listen(PORT, () => {
-    console.log("Express server listening on port " + PORT);
+  .listen(PORT_HTTPS, () => {
+    console.log("Express server listening on port " + PORT_HTTPS);
   });
-
-/*
-var server = http.createServer(app.express).listen(PORT, () => {
-  console.log("Express server listening on port " + PORT);
-});
-*/
 
 process.on("SIGTERM", () => {
   console.info("SIGTERM signal received.");
