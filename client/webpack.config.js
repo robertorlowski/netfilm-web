@@ -18,7 +18,7 @@ module.exports = {
           plugins: () => [
             require("postcss-import"),
             require("tailwindcss")("./tailwind.config.js"),
-            //purgecss,
+            purgecss,
             require("autoprefixer"),
           ],
         },
