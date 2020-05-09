@@ -3,7 +3,7 @@
     <span class="container space-y-0 text-white uppercase pt-2">
       {{title}}
     </span>
-    <div class="flex flex-wrap overflow-y-auto ">
+    <div class="flex flex-wrap overflow-y-auto justify-center">
       <div tabindex="0" *ngFor="let item of movies"
         class="bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker mr-2 mb-2"
         on-focus="showDetails(item)">

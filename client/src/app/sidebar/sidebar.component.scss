@@ -17,19 +17,8 @@
     position: relative;
   }
 
-  .section {
-    display: block;
-  }
-
   #sidebar #s-cont {
     flex-grow: 1;
     opacity: 1;
-  }
-
-  #sidebar {
-    grid-area: sidebar;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: 100vh;
+    margin-left: 10px;
   }
