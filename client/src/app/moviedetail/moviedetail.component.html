@@ -1,27 +1,26 @@
-<div class="movie_card bg-black-darkest" id="bright">
-  <div class="info_section">
-    <div class="movie_header">
-      <img class="locandina" [src]="movie?.getPosterUrl()" />
-      <h1>{{movie?.title}}</h1>
-      <h4>{{movie?.getReleaseYear()}}</h4>
-      <!--<span class="minutes">117 min</span>-->
-      <p class="type">{{clientCtx.getGenersNameByIdList(movie?.genreIds)}}</p>
+  <div class="movie_card" id="bright">
+    <div class="info_section">
+      <div class="movie_header">
+        <img class="locandina" [src]="movie?.getPosterUrl()" />
+        <h1>{{movie?.title}}</h1>
+        <h4>{{movie?.getReleaseYear()}}</h4>
+        <!--<span class="minutes">117 min</span>-->
+        <p class="type">{{clientCtx.getGenersNameByIdList(movie?.genreIds)}}</p>
+      </div>
+      <div class="movie_desc">
+        <p class="text-sm text-white break-words font-sans pt-2 h-full">
+          {{movie?.overview}}
+        </p>
+      </div>
+      <!--
+        <div class="movie_social">
+          <ul>
+            <li><i class="material-icons">share</i></li>
+            <li><i class="material-icons">chat_bubble</i></li>
+          </ul>
+        </div>
+      -->
     </div>
-    <div class="movie_desc">
-      <p class="text-sm text-white break-words font-sans pt-2 h-full">
-        {{movie?.overview}}
-      </p>
-    </div>
-    <!--
-    <div class="movie_social">
-      <ul>
-        <li><i class="material-icons">share</i></li>
-        <li><i class="material-icons">chat_bubble</i></li>
-      </ul>
-    </div>
-  -->
+
+    <img *ngIf="movie.backdropPath" id="backdropPath" [src]="movie?.getLargePictureUrl()" />
   </div>
-  <div class="absolute top-0 right-0 h-full w-1/2">
-    <img class="h-full w-full" [src]="movie?.getLargePictureUrl()" />
-  </div>
-</div>

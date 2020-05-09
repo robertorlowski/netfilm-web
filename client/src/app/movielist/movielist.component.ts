@@ -10,15 +10,17 @@ import {
   OnDestroy,
   ElementRef,
   ViewChild,
+  AfterViewInit,
 } from "@angular/core";
 import { Subscription } from "rxjs";
+import { DeviceDetectorService } from "ngx-device-detector";
 
 @Component({
   selector: "app-movielist",
   templateUrl: "./movielist.component.html",
   styleUrls: ["./movielist.component.scss"],
 })
-export class MovielistComponent implements OnInit, OnDestroy {
+export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
   public title: string;
   private categoryId: number = NaN;
   public language: string = "pl";
@@ -30,13 +32,22 @@ export class MovielistComponent implements OnInit, OnDestroy {
   public isEnd: Boolean = true;
   @ViewChild("parent", { static: true }) movielistRef: ElementRef;
   private eParent: any;
+  @ViewChild("mov", { static: true }) movRef: ElementRef;
+  private movElement: any;
 
   constructor(
     private apiProvider: ApiMediaProvider,
     private activeRoute: ActivatedRoute,
     private clientCtx: ClientCtx,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private deviceService: DeviceDetectorService
   ) {}
+
+  ngAfterViewInit(): void {
+    if (this.deviceService.browser === "IE") {
+      this.movElement.style.maxWidth = "960px";
+    }
+  }
 
   private initData() {
     this.isLoading = false;
@@ -50,13 +61,13 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.eParent = this.movielistRef.nativeElement.parentElement;
+    this.movElement = this.movRef.nativeElement;
+    this.eParent = this.movielistRef.nativeElement.parentElement.parentElement;
     this.subscription = this.clientCtx.scrollDource$.subscribe(() => {
       this.loadMovie(this.categoryId);
     });
 
     this.activeRoute.params.subscribe((routeParams) => {
-      console.log(routeParams);
       if (routeParams.id === NaN) {
         return;
       }

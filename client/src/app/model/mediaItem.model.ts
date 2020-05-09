@@ -26,9 +26,6 @@ export class MediaItem {
   }
 
   public getLargePictureUrl(): string {
-    if (this.backdropPath === undefined) {
-      return AppUtils.getLargePictureUrl(this.posterPath);
-    }
     return AppUtils.getLargePictureUrl(this.backdropPath);
   }
 

@@ -1,16 +1,14 @@
-<div #parent class="flex flex-col m-2">
-  <div class="m-3">
-    <span class="container space-y-0 text-white uppercase pt-2">
+<div #parent fxLayout="column" class="m-2">
+  <div class="m-3" fxLayout="column">
+    <span class="container space-y-0 text-white uppercase pb-2">
       {{title}}
     </span>
-    <div class="flex flex-wrap overflow-y-auto justify-center">
+    <div id="mov" #mov fxLayout="row wrap" fxFlexAlign="center" class="overflow-y-auto">
       <div tabindex="0" *ngFor="let item of movies"
-        class="bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker mr-2 mb-2"
+        class="bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker m-1 p-3"
         on-focus="showDetails(item)">
-        <div class="bg-white m-3">
-          <div id="movie_card" class="flex-shrink-0 " on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
-            <img class="h-56 w-40" [src]="[posterMediumPath(item)]" alt="{item.title}" />
-          </div>
+        <div id="movie_card" class="" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
+          <img class="h-56 w-40" [src]="[posterMediumPath(item)]" alt="{item.title}" />
         </div>
       </div>
     </div>
@@ -21,7 +19,7 @@
 </div>
 
 <jw-modal id="video-link" class="jw-modal">
-  <div class="mt-8 sm:mt-0 sm:w-full sm:px-8 flex flex-col md:flex-row justify-between">
+  <div fxLayout="column" class="mt-8">
     <div class="flow-root">
       <span class="block text-center text-gray uppercase mb-2 text-white">Filmy</span>
       <span class="my-2 hover:text-blue text-white block " *ngFor="let item of selectedItem?.movieIds">
