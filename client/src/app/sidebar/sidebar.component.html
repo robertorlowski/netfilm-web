@@ -5,7 +5,7 @@
 
   <section id="s-cont" class="section sidebar-icons clickable pt-4 text-base">
     <a *ngFor="let item of genres" routerLink="/movielist/{{item.id}}" fxLayout="column"
-      class="px-3 py-1 text-grey cursor-pointer hover:bg-grey-darker no-underline">
+      class="px-3 pt-1 text-grey cursor-pointer hover:bg-grey-darker no-underline">
       <div fxLayout="row">
         <fa-icon class="fa" [icon]="faArrowRight"></fa-icon>
         <div class="ml-2 text-white text-base">{{ item.name }}</div>
