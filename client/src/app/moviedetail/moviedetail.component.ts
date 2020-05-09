@@ -9,7 +9,7 @@ import { Component, OnInit, Input, OnDestroy } from "@angular/core";
   styleUrls: ["./moviedetail.component.scss"],
 })
 export class MoviedetailComponent implements OnInit, OnDestroy {
-  movie: MediaItem;
+  movie: MediaItem = new MediaItem();
   private exec: any;
   private mediaSubscription: Subscription;
 

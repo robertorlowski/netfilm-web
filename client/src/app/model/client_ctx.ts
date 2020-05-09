@@ -1,5 +1,4 @@
 import { MediaItem } from "./mediaItem.model";
-import { ScrollEvent } from "ngx-scroll-event";
 import { Genres } from "./genres.model";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
@@ -7,9 +6,9 @@ import { Subject } from "rxjs";
 export class ClientCtx {
   public geners: Genres[];
 
-  private scrollSource = new Subject<ScrollEvent>();
+  private scrollSource = new Subject<any>();
   scrollDource$ = this.scrollSource.asObservable();
-  public scrollEvent(event: ScrollEvent) {
+  public scrollEvent(event: any) {
     this.scrollSource.next(event);
   }
 

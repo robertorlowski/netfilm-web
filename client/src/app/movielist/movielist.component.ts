@@ -11,7 +11,6 @@ import {
   ElementRef,
   ViewChild,
 } from "@angular/core";
-import { ScrollEvent } from "ngx-scroll-event";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -52,15 +51,12 @@ export class MovielistComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.eParent = this.movielistRef.nativeElement.parentElement;
-    this.subscription = this.clientCtx.scrollDource$.subscribe(
-      (event: ScrollEvent) => {
-        if (event.isReachingBottom && !this.isLoading && !this.isEnd) {
-          this.loadMovie(this.categoryId);
-        }
-      }
-    );
+    this.subscription = this.clientCtx.scrollDource$.subscribe(() => {
+      this.loadMovie(this.categoryId);
+    });
 
     this.activeRoute.params.subscribe((routeParams) => {
+      console.log(routeParams);
       if (routeParams.id === NaN) {
         return;
       }

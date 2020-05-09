@@ -1,5 +1,5 @@
 import { ClientCtx } from "./model/client_ctx";
-import { ScrollEvent } from "ngx-scroll-event";
+
 import {
   Component,
   Output,
@@ -15,12 +15,14 @@ import {
 })
 export class AppComponent {
   title = "net-film";
-  @Output() scroll = new EventEmitter<ScrollEvent>();
+  @Output() scroll = new EventEmitter<any>();
   @ViewChild("content", { static: true }) content: ElementRef;
 
-  constructor(private clientCtx: ClientCtx) {}
+  constructor(private clientCtx: ClientCtx) {
+    console.log("START");
+  }
 
-  public handleScroll(event: ScrollEvent) {
+  public onScroll(event: any) {
     this.clientCtx.scrollEvent(event);
   }
 }
