@@ -15,10 +15,10 @@ module.exports = {
         options: {
           ident: "postcss",
           syntax: "postcss-scss",
-          plugins: () => [
+          plugins: [
             require("postcss-import"),
             require("tailwindcss")("./tailwind.config.js"),
-            //purgecss,
+            ...(process.env.NODE_ENV === "production" ? purgecss : []),
             require("autoprefixer"),
           ],
         },
