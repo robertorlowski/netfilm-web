@@ -2,7 +2,6 @@
   (scrolled)="onScroll($event)" [infiniteScrollContainer]="'.content'">
   <app-sidebar class="sidebar"></app-sidebar>
   <div id="main" #main class="block  w-full text-white">
-    {{width}}
     <app-moviedetail #details></app-moviedetail>
     <div id="content" #content class="content bg-black overflow-auto">
       <router-outlet></router-outlet>

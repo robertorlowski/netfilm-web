@@ -19,21 +19,23 @@ export class AppComponent implements AfterViewInit {
   @Output() scroll = new EventEmitter<any>();
   @ViewChild("main", { static: true }) main: ElementRef;
   @ViewChild("content", { static: true }) content: ElementRef;
-  width;
 
-  constructor(private clientCtx: ClientCtx) {
-    console.log("START");
-  }
+  constructor(private clientCtx: ClientCtx) {}
 
   ngAfterViewInit(): void {
-    this.width = this.main.nativeElement.clientHeight;
-    this.content.nativeElement.style.maxHeight =
-      this.main.nativeElement.clientHeight - 420 + "px";
+    this.setMaxWidth();
+  }
+  setMaxWidth() {
+    if (this.main.nativeElement.clientHeight - 390 <= 10) {
+      this.content.nativeElement.style.maxHeight = "330px";
+    } else {
+      this.content.nativeElement.style.maxHeight =
+        this.main.nativeElement.clientHeight - 390 + "px";
+    }
   }
 
   public onScroll(event: any) {
     this.clientCtx.scrollEvent(event);
-    this.content.nativeElement.style.maxHeight =
-      this.main.nativeElement.clientHeight - 420 + "px";
+    this.setMaxWidth();
   }
 }
