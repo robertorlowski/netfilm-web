@@ -1,4 +1,4 @@
-<div #parent fxLayout="column" class="mx-2">
+<div id="parent" #parent fxLayout="column" class="mx-2">
   <div class="mx-3" fxLayout="column">
     <span class="container space-y-0 text-white uppercase pb-2 pl-1">
       {{title}}
@@ -8,7 +8,7 @@
         class="bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker m-1 p-3"
         on-focus="showDetails(item)">
         <div id="movie_card" class="" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
-          <img class="h-56 w-40" [src]="[posterMediumPath(item)]" alt="{item.title}" />
+          <img *ngIf="item.posterPath" class="h-56 w-40" [src]="[posterMediumPath(item)]" [alt]="[item.title]" />
         </div>
       </div>
     </div>

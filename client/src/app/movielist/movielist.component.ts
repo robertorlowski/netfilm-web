@@ -62,7 +62,7 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.movElement = this.movRef.nativeElement;
-    this.eParent = this.movielistRef.nativeElement.parentElement.parentElement;
+    this.eParent = this.movielistRef.nativeElement;
     this.subscription = this.clientCtx.scrollDource$.subscribe(() => {
       this.loadMovie(this.categoryId);
     });
@@ -107,6 +107,8 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isLoading = false;
         //
         setTimeout(() => {
+          //console.log(this.eParent.scrollHeight);
+          //console.log(this.eParent.clientHeight);
           if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
             this.loadMovie(this.categoryId);
           }
