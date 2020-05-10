@@ -1,3 +1,4 @@
+import { DeviceDetectorService } from "ngx-device-detector";
 import { Subscription } from "rxjs";
 import { ClientCtx } from "./../model/client_ctx";
 import { MediaItem } from "./../model/mediaItem.model";
@@ -11,15 +12,21 @@ import { Component, OnInit, Input, OnDestroy } from "@angular/core";
 export class MoviedetailComponent implements OnInit, OnDestroy {
   movie: MediaItem = new MediaItem();
   private exec: any;
+  public browser: string;
   private mediaSubscription: Subscription;
 
-  constructor(public clientCtx: ClientCtx) {}
+  constructor(
+    public clientCtx: ClientCtx,
+    private deviceService: DeviceDetectorService
+  ) {}
 
   ngOnDestroy(): void {
     this.mediaSubscription.unsubscribe;
   }
 
   ngOnInit() {
+    this.browser = this.deviceService.browser;
+
     this.mediaSubscription = this.clientCtx.mediaSource$.subscribe(
       (item: MediaItem) => {
         if (this.exec) {

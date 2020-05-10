@@ -2,7 +2,7 @@
     <div class="info_section">
       <div class="movie_header">
         <img class="locandina" [src]="movie?.getPosterUrl()" />
-        <h1>{{movie?.title}}</h1>
+        <h1>{{movie?.title}} - {{browser}}</h1>
         <h4>{{movie?.getReleaseYear()}}</h4>
         <!--<span class="minutes">117 min</span>-->
         <p class="type">{{clientCtx.getGenersNameByIdList(movie?.genreIds)}}</p>
