@@ -1,3 +1,4 @@
+import { element } from "protractor";
 import { ModalService } from "./../services/modal.service";
 import { ActivatedRoute } from "@angular/router";
 import { AppUtils } from "./../Utils/app_utils";
@@ -62,7 +63,7 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.movElement = this.movRef.nativeElement;
-    this.eParent = this.movielistRef.nativeElement;
+    this.eParent = this.movielistRef.nativeElement.parentElement.parentElement;
     this.subscription = this.clientCtx.scrollDource$.subscribe(() => {
       this.loadMovie(this.categoryId);
     });
