@@ -1,11 +1,13 @@
   <div class="movie_card" id="bright">
     <div class="info_section">
       <div class="movie_header">
-        <img class="locandina" [src]="movie?.getPosterUrl()" />
+        <img *ngIf="!movie?.posterError" class="locandina" [src]="movie?.getPosterUrl()" />
         <h1>{{movie?.title}}</h1>
-        <h4>{{movie?.getReleaseYear()}}</h4>
-        <!--<span class="minutes">117 min</span>-->
         <p class="type">{{clientCtx.getGenersNameByIdList(movie?.genreIds)}}</p>
+        <h4>{{movie?.getReleaseYear()}}</h4>
+        <h4>{{movie?.voteAverage}}</h4>
+        <!--<span class="minutes">117 min</span>-->
+
       </div>
       <div class="movie_desc">
         <p class="text-base text-white break-words font-sans pt-2 h-full">

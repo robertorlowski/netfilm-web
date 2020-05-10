@@ -20,6 +20,7 @@ export class MediaItem {
   public movieIds: Movie[] = [];
   public genreIds: number[] = [];
   public videoIds: string[];
+  public posterError: Boolean = false;
 
   public getPosterUrl(): string {
     return AppUtils.getMediumPictureUrl(this.posterPath);

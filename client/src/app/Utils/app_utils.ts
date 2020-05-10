@@ -36,4 +36,12 @@ export class AppUtils {
       return AppUtils.getMediumPictureUrl(media.backdropPath);
     }
   }
+
+  public static getBackdropMediumPathUrl(media: MediaItem): string {
+    if (media.posterPath) {
+      return AppUtils.getMediumPictureUrl(media.posterPath);
+    } else {
+      return AppUtils.getMediumPictureUrl(media.backdropPath);
+    }
+  }
 }

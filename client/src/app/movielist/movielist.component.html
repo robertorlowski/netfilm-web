@@ -7,8 +7,18 @@
       <div tabindex="0" *ngFor="let item of movies"
         class="bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker m-1 p-3"
         on-focus="showDetails(item)">
-        <div id="movie_card" class="" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
-          <img *ngIf="item.posterPath" class="h-56 w-40" [src]="[posterMediumPath(item)]" [alt]="[item.title]" />
+        <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
+
+          <img *ngIf="!item.posterError" class="poster h-56 w-40 bg-blue-darker" [src]="[posterMediumPath(item)]"
+            (error)="(item.posterError = true)" />
+
+          <div *ngIf="item.posterError" fxLayout="row" fxLayoutAlign="center"
+            class="title bg-blue-darker text-white text-sm py-1 px-1 h-56 w-40">
+            {{item.title}}
+          </div>
+          <div class="tooltip bg-blue-darker text-white text-sm py-1 px-1">
+            {{item.title}}
+          </div>
         </div>
       </div>
     </div>
