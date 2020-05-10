@@ -29,18 +29,18 @@
 </div>
 
 <jw-modal id="video-link" class="jw-modal">
-  <div fxLayout="column" class="mt-8">
-    <div class="flow-root">
+  <div fxLayout="column" class="mt-1">
+    <div class="flow-root mx-3">
       <span class="block text-center text-gray uppercase mb-2 text-white">Filmy</span>
-      <span class="my-2 hover:text-blue text-white block " *ngFor="let item of selectedItem?.movieIds">
-        <a [href]="[item.url]" target="_blank" class="text-md" (click)="closeModal('video-link');">
+      <span class="my-2 hover:text-blue text-white block text-xl" *ngFor="let item of selectedItem?.movieIds">
+        <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link');">
           <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp; {{item.title}} &nbsp; ({{item.time}}min.)
         </a>
       </span>
     </div>
   </div>
 
-  <div class="bg-gray-300 flex flex-row-reverse pt-2">
+  <div fxLayout="row" fxLayout="row-reverse" fxLayoutAlign="start start" fxLayoutGap="gappx" class="py-2 px-2">
     <button class="bg-blue py-1 px-3 rounded text-white" (click)="closeModal('video-link');">Zamknij</button>
   </div>
 </jw-modal>
