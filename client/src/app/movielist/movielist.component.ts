@@ -5,16 +5,7 @@ import { AppUtils } from "./../Utils/app_utils";
 import { MediaItem, MediaType } from "./../model/mediaItem.model";
 import { ClientCtx } from "../model/client_ctx";
 import { ApiMediaProvider, ProviderType } from "./../services/media.providers";
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
-} from "@angular/core";
-import { Subscription } from "rxjs";
-import { DeviceDetectorService } from "ngx-device-detector";
+import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
 
 @Component({
   selector: "app-movielist",
@@ -95,7 +86,7 @@ export class MovielistComponent implements OnInit {
           if (this.eParent.scrollHeight <= this.eParent.clientHeight + 160) {
             this.loadMovie(this.categoryId);
           }
-        }, 100);
+        }, 300);
       });
   }
 
