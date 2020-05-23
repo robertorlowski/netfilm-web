@@ -1,26 +1,35 @@
+#parent {
+  padding-top: 360px;
+  z-index: 5;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 #movie_card {
   z-index: 0;
 
   .poster {
-    position: relative;
-    z-index: 10;
-  }
-
-  .title {
     display: flex;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 15;
+    z-index: 10;
     justify-content: space-around;
   }
 
-
+  .title {
+    display: none;
+  }
 
   &:hover {
     transform: scale(1.05);
     transition: all 0.4s;
 
-
+    .title {
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 15;
+      justify-content: space-around;
+    }
   }
 }

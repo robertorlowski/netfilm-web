@@ -1,9 +1,9 @@
   <div class="movie_card" id="bright">
-    <div class="info_section">
+    <div [ngClass]="!movie.posterError ? 'info_section':'info_section_empty_img'">
       <div class="movie_header">
         <img *ngIf="!movie?.posterError" class="locandina" [src]="movie?.getPosterUrl()" />
         <h1>{{movie?.title}}</h1>
-        <p class="type">{{clientCtx.getGenersNameByIdList(movie?.genreIds)}}</p>
+        <p class="type">{{geners}}</p>
         <h4>{{movie?.getReleaseYear()}}</h4>
         <h4>{{movie?.voteAverage}}</h4>
         <!--<span class="minutes">117 min</span>-->
@@ -16,5 +16,6 @@
       </div>
     </div>
 
-    <img *ngIf="movie.backdropPath" id="backdropPath" [src]="movie?.getLargePictureUrl()" />
+    <img *ngIf="movie.backdropPath" id="backdropPath" [src]="movie?.getLargePictureUrl()"
+      (error)="movie.posterError = true" />
   </div>

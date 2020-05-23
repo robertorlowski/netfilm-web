@@ -21,34 +21,24 @@ import { DeviceDetectorService } from "ngx-device-detector";
   templateUrl: "./movielist.component.html",
   styleUrls: ["./movielist.component.scss"],
 })
-export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MovielistComponent implements OnInit {
   public title: string;
   private categoryId: number = NaN;
   public language: string = "pl";
   public movies: MediaItem[] = [];
   public selectedItem: MediaItem;
-  private subscription: Subscription;
   private isLoading: Boolean = false;
   private page: number = 1;
   public isEnd: Boolean = true;
   @ViewChild("parent", { static: true }) movielistRef: ElementRef;
   private eParent: any;
-  @ViewChild("mov", { static: true }) movRef: ElementRef;
-  private movElement: any;
 
   constructor(
     private apiProvider: ApiMediaProvider,
     private activeRoute: ActivatedRoute,
     private clientCtx: ClientCtx,
-    private modalService: ModalService,
-    private deviceService: DeviceDetectorService
+    private modalService: ModalService
   ) {}
-
-  ngAfterViewInit(): void {
-    if (this.deviceService.browser === "IE") {
-      this.movElement.style.maxWidth = "960px";
-    }
-  }
 
   private initData() {
     this.isLoading = false;
@@ -57,16 +47,8 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
     this.movies = [];
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe;
-  }
-
   ngOnInit() {
-    this.movElement = this.movRef.nativeElement;
-    this.eParent = this.movielistRef.nativeElement.parentElement.parentElement;
-    this.subscription = this.clientCtx.scrollDource$.subscribe(() => {
-      this.loadMovie(this.categoryId);
-    });
+    this.eParent = this.movielistRef.nativeElement;
 
     this.activeRoute.params.subscribe(async (routeParams) => {
       if (routeParams.id === NaN) {
@@ -110,7 +92,7 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
         setTimeout(() => {
           //console.log(this.eParent.scrollHeight);
           //console.log(this.eParent.clientHeight);
-          if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
+          if (this.eParent.scrollHeight <= this.eParent.clientHeight + 160) {
             this.loadMovie(this.categoryId);
           }
         }, 100);
@@ -132,5 +114,9 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
 
   closeModal(id: string) {
     this.modalService.close(id);
+  }
+
+  public onScroll() {
+    this.loadMovie(this.categoryId);
   }
 }

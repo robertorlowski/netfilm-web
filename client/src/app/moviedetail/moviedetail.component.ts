@@ -12,6 +12,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   movie: MediaItem = new MediaItem();
   private exec: any;
   private mediaSubscription: Subscription;
+  geners: string;
 
   constructor(public clientCtx: ClientCtx) {}
 
@@ -25,8 +26,11 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
         if (this.exec) {
           clearTimeout(this.exec);
         }
-        this.exec = setTimeout(() => {
+        this.exec = setTimeout(async () => {
           this.movie = item;
+          this.geners = await this.clientCtx.getGenersNameByIdList(
+            item.genreIds
+          );
         }, 100);
       }
     );

@@ -1,9 +1,8 @@
-<div id="app" class="font-sans bg-black h-screen overflow-x-hidden" infiniteScroll (scrolled)="onScroll($event)"
-  [infiniteScrollContainer]="'.content'">
+<div id="app" class="font-sans bg-black h-screen overflow-x-hidden">
   <app-sidebar></app-sidebar>
-  <div id="main" #main class="z-10 fixed pl-48  block  w-full h-screen text-white">
-    <app-moviedetail #details></app-moviedetail>
-    <div id="content" #content class="content bg-black overflow-auto">
+  <div id="main" #main class="z-10 pl-48  block h-screen text-white">
+    <app-moviedetail class="" #details></app-moviedetail>
+    <div id="content" #content class="w-full content bg-black overflow-auto">
       <router-outlet></router-outlet>
     </div>
   </div>

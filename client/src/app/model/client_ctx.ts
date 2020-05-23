@@ -21,7 +21,7 @@ export class ClientCtx {
     this.mediaSource.next(item);
   }
 
-  public getGenersNameByIdList(idList: number[]) {
+  public async getGenersNameByIdList(idList: number[]) {
     if (idList == undefined) {
       return "";
     }
@@ -30,7 +30,7 @@ export class ClientCtx {
       if (genreStr != "") {
         genreStr += ", ";
       }
-      genreStr += this.getGenersNameByKod(item);
+      genreStr += await this.getGenersNameByKod(item);
     }
     return genreStr;
   }
