@@ -1,4 +1,3 @@
-import { element } from "protractor";
 import { ModalService } from "./../services/modal.service";
 import { ActivatedRoute } from "@angular/router";
 import { AppUtils } from "./../Utils/app_utils";
