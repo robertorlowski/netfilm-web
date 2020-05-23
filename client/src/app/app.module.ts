@@ -14,7 +14,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { MoviedetailComponent } from "./moviedetail/moviedetail.component";
 import { ModalComponent } from "./modal-component/modal-component.component";
-import { FlexLayoutModule } from "@angular/flex-layout";
 import { DeviceDetectorModule } from "ngx-device-detector";
 
 const routes: Routes = [
@@ -33,7 +32,6 @@ const routes: Routes = [
   ],
   imports: [
     DeviceDetectorModule.forRoot(),
-    FlexLayoutModule,
     InfiniteScrollModule,
     RouterModule.forRoot(routes, {
       anchorScrolling: "enabled",

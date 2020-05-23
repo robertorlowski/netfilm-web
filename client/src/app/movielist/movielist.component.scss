@@ -2,33 +2,25 @@
   z-index: 0;
 
   .poster {
-    z-index: 1;
+    position: relative;
+    z-index: 10;
   }
 
   .title {
-    z-index: 2;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 15;
+    justify-content: space-around;
   }
 
-  .tooltip {
-    display: none;
-  }
+
 
   &:hover {
     transform: scale(1.05);
     transition: all 0.4s;
 
-    .tooltip {
-      display: flex;
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      z-index: 3;
-      justify-content: space-around;
-    }
 
-    .title {
-      display: none;
-    }
   }
 }

@@ -34,7 +34,7 @@ export class ClientCtx {
 
   public getGenersNameByKod(kod: number) {
     if (!this.geners) {
-      return null;
+      return "unknown";
     }
     for (let item of this.geners) {
       if (item.id === kod) {

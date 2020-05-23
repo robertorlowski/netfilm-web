@@ -1,24 +1,19 @@
-<div id="parent" #parent fxLayout="column" class="mx-2">
-  <div class="mx-3" fxLayout="column">
-    <span class="container space-y-0 text-white uppercase pb-2 pl-1">
-      {{title}}
-    </span>
-    <div id="mov" #mov fxLayout="row wrap" fxFlexAlign="center" class="overflow-y-auto">
+<div id="parent" #parent class="block mx-2">
+  <span class="mx-3 container space-y-0 text-white uppercase pb-2 pl-1">
+    {{ title }}
+  </span>
+  <div class="mx-3">
+
+    <div id="mov" #mov class="inline w-48 h-56 overflow-y-auto">
       <div tabindex="0" *ngFor="let item of movies"
-        class="bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker m-1 p-3"
+        class="inline-block bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker m-1 p-3"
         on-focus="showDetails(item)">
         <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
-
+          <div class="title bg-blue-darker text-white text-sm py-1 px-1 w-40">
+            {{ item.title }}
+          </div>
           <img *ngIf="!item.posterError" class="poster h-56 w-40 bg-blue-darker" [src]="[posterMediumPath(item)]"
-            (error)="(item.posterError = true)" />
-
-          <div *ngIf="item.posterError" fxLayout="row" fxLayoutAlign="center"
-            class="title bg-blue-darker text-white text-sm py-1 px-1 h-56 w-40">
-            {{item.title}}
-          </div>
-          <div class="tooltip bg-blue-darker text-white text-sm py-1 px-1">
-            {{item.title}}
-          </div>
+            (error)="item.posterError = true" />
         </div>
       </div>
     </div>
@@ -32,15 +27,18 @@
   <div fxLayout="column" class="mt-1">
     <div class="flow-root mx-3">
       <span class="block text-center text-gray uppercase mb-2 text-white">Filmy</span>
-      <span class="my-2 hover:text-blue text-white block text-xl" *ngFor="let item of selectedItem?.movieIds">
-        <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link');">
-          <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp; {{item.title}} &nbsp; ({{item.time}}min.)
+      <span class="my-2 hover:text-blue text-white block text-base" *ngFor="let item of selectedItem?.movieIds">
+        <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link')">
+          <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
+          {{ item.title }} &nbsp; ({{ item.time }}min.)
         </a>
       </span>
     </div>
   </div>
 
-  <div fxLayout="row" fxLayout="row-reverse" fxLayoutAlign="start start" fxLayoutGap="gappx" class="py-2 px-2">
-    <button class="bg-blue py-1 px-3 rounded text-white" (click)="closeModal('video-link');">Zamknij</button>
+  <div class="inline-block w-full text-right  py-2 px-2">
+    <button class="bg-blue py-1 px-3 rounded text-white" (click)="closeModal('video-link')">
+      Zamknij
+    </button>
   </div>
 </jw-modal>
