@@ -1,10 +1,13 @@
+import { ApiMediaProvider, ProviderType } from "./../services/media.providers";
 import { MediaItem } from "./mediaItem.model";
 import { Genres } from "./genres.model";
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 @Injectable({ providedIn: "root" })
 export class ClientCtx {
-  public geners: Genres[];
+  public geners: Genres[] = [];
+
+  constructor(private apiProvider: ApiMediaProvider) {}
 
   private scrollSource = new Subject<any>();
   scrollDource$ = this.scrollSource.asObservable();
@@ -32,9 +35,13 @@ export class ClientCtx {
     return genreStr;
   }
 
-  public getGenersNameByKod(kod: number) {
-    if (!this.geners) {
-      return "unknown";
+  public async getGenersNameByKod(kod: number) {
+    if (this.geners.length === 0) {
+      const data = await this.apiProvider
+        .getProvider(ProviderType.NET)
+        .loadGenres("pl")
+        .toPromise();
+      this.geners = data.genres;
     }
     for (let item of this.geners) {
       if (item.id === kod) {

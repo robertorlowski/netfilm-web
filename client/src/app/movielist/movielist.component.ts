@@ -68,14 +68,14 @@ export class MovielistComponent implements OnInit, OnDestroy, AfterViewInit {
       this.loadMovie(this.categoryId);
     });
 
-    this.activeRoute.params.subscribe((routeParams) => {
+    this.activeRoute.params.subscribe(async (routeParams) => {
       if (routeParams.id === NaN) {
         return;
       }
       this.initData();
       this.categoryId = Number(routeParams.id);
       //get title
-      this.title = this.clientCtx.getGenersNameByKod(this.categoryId);
+      this.title = await this.clientCtx.getGenersNameByKod(this.categoryId);
       //load movies
       this.loadMovie(this.categoryId);
       //}
