@@ -13,7 +13,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   private exec: any;
   private mediaSubscription: Subscription;
   geners: string;
-
+  errorImg: boolean = false;
   constructor(public clientCtx: ClientCtx) {}
 
   ngOnDestroy(): void {
@@ -27,6 +27,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
           clearTimeout(this.exec);
         }
         this.exec = setTimeout(async () => {
+          this.errorImg = false;
           this.movie = item;
           this.geners = await this.clientCtx.getGenersNameByIdList(
             item.genreIds

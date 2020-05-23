@@ -82,10 +82,10 @@ export class MovielistComponent implements OnInit {
         setTimeout(() => {
           //console.log(this.eParent.scrollHeight);
           //console.log(this.eParent.clientHeight);
-          if (this.eParent.scrollHeight <= this.eParent.clientHeight + 160) {
+          if (this.eParent.scrollHeight <= this.eParent.clientHeight + 30) {
             this.loadMovie(this.categoryId);
           }
-        }, 300);
+        }, 100);
       });
   }
 
