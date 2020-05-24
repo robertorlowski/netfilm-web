@@ -4,7 +4,7 @@
     {{ title }}
   </span>
   <div>
-    <div id="mov" #mov class="inline w-48 h-56 overflow-y-auto">
+    <div id="mov" #mov class="w-48 h-56 overflow-y-auto">
       <div tabindex="0" *ngFor="let item of movies"
         class="inline-block bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker mr-1 p-3"
         on-focus="showDetails(item)">
@@ -19,7 +19,6 @@
           <div *ngIf="item.posterError" class="poster h-56 w-40 bg-blue-darker">
             {{ item.title }}
           </div>
-
         </div>
       </div>
     </div>
@@ -30,19 +29,17 @@
 </div>
 
 <jw-modal id="video-link" class="jw-modal">
-  <div fxLayout="column" class="mt-1">
-    <div class="flow-root mx-3">
-      <span class="block text-center text-gray uppercase mb-2 text-white">Filmy</span>
-      <span class="my-2 hover:text-blue text-white block text-base" *ngFor="let item of selectedItem?.movieIds">
-        <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link')">
-          <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
-          {{ item.title }} &nbsp; ({{ item.time }}min.)
-        </a>
-      </span>
-    </div>
+  <div class="mt-1 mx-3">
+    <span class="block text-center text-gray uppercase mb-2 text-white">Filmy</span>
+    <span class="my-2 hover:text-blue text-white block text-base" *ngFor="let item of selectedItem?.movieIds">
+      <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link')">
+        <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
+        {{ item.title }} &nbsp; ({{ item.time }}min.)
+      </a>
+    </span>
   </div>
 
-  <div class="inline-block w-full text-right  py-2 px-2">
+  <div class="inline-block w-full text-right py-2 px-2">
     <button class="bg-blue py-1 px-3 rounded text-white" (click)="closeModal('video-link')">
       Zamknij
     </button>

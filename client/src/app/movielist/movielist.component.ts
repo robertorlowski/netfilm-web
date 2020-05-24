@@ -4,7 +4,14 @@ import { AppUtils } from "./../Utils/app_utils";
 import { MediaItem, MediaType } from "./../model/mediaItem.model";
 import { ClientCtx } from "../model/client_ctx";
 import { ApiMediaProvider, ProviderType } from "./../services/media.providers";
-import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+  Inject,
+} from "@angular/core";
+import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: "app-movielist",
@@ -22,6 +29,7 @@ export class MovielistComponent implements OnInit {
   public isEnd: Boolean = true;
   @ViewChild("parent", { static: true }) movielistRef: ElementRef;
   private eParent: any;
+  @ViewChild("fetchMovie", { static: true }) fetchMovieRef: ElementRef;
 
   constructor(
     private apiProvider: ApiMediaProvider,
@@ -80,9 +88,9 @@ export class MovielistComponent implements OnInit {
         this.isLoading = false;
         //
         setTimeout(() => {
-          //console.log(this.eParent.scrollHeight);
-          //console.log(this.eParent.clientHeight);
-          if (this.eParent.scrollHeight <= this.eParent.clientHeight + 30) {
+          //console.log(this.fetchMovieRef.nativeElement.offsetTop);
+          //console.log(this.fetchMovieRef.nativeElement.offsetLeft);
+          if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
             this.loadMovie(this.categoryId);
           }
         }, 100);
