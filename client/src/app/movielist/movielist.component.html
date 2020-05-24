@@ -16,7 +16,7 @@
           <img class="poster h-56 w-40 bg-blue-darker" [src]="[posterMediumPath(item)]"
             (error)="item.posterError = true" />
 
-          <div *ngIf="item.posterError" class="poster h-56 w-40 bg-blue-darker">
+          <div *ngIf="item.posterError" class="poster h-56 w-40 bg-blue-darker text-white text-sm py-1 px-1">
             {{ item.title }}
           </div>
         </div>

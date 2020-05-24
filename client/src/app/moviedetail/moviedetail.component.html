@@ -2,7 +2,7 @@
 
     <div [ngClass]="(!errorImg && movie?.backdropPath != '') ? 'info_section':'info_section_empty_img'">
       <div class="movie_header">
-        <img *ngIf="!movie?.posterError" class="locandina" [src]="movie?.getPosterUrl()" />
+        <img *ngIf="!movie?.posterError && movie?.posterPath" class="locandina" [src]="movie?.getPosterUrl()" />
         <h1>{{movie?.title}}</h1>
         <p class="type">{{geners}}</p>
         <h4>{{movie?.getReleaseYear()}}</h4>

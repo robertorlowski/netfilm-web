@@ -9,7 +9,6 @@ import { HttpClient } from "@angular/common/http";
 @Injectable()
 export class ApiClientNet implements MediaService {
   baseUrl: string = "https://api.themoviedb.org/";
-  //netUrl: string = "https://biuro.pruim.gliwice.pl:9000/";
   netUrl: string = "https://netfilm.netlify.app/api/";
 
   constructor(private http: HttpClient) {}
@@ -25,12 +24,13 @@ export class ApiClientNet implements MediaService {
       }
     );
   }
+
   public getMoviesForGenreIDs(
     lang: string,
     page: number,
     genresIds: number[],
     sortBy: string
-  ): Observable<ResultGenres> {
+  ): Observable<any> {
     return this.http.get<any>(
       this.netUrl.concat("netfilm/fetchMoviesForGenres"),
       {
@@ -45,6 +45,58 @@ export class ApiClientNet implements MediaService {
       }
     );
   }
+
+  public getSearchResults(query: string): Observable<any> {
+    return this.http.get<any>(this.netUrl.concat("netfilm/fetchSearchMovies"), {
+      headers: {
+        "api-key": AppUtils.NET_API_KEY,
+      },
+      params: {
+        title: query,
+      },
+    });
+  }
+
+  public getVideos(movieId: number): Observable<any> {
+    return this.http.get<ResultGenres>(
+      this.baseUrl.concat(`3/movie/${movieId}/videos`),
+      {
+        params: {
+          api_key: AppUtils.IMDB_API_KEY,
+        },
+      }
+    );
+  }
+  /*
+  Future<List<Video>> getVideos(int movieId) async {
+    var url = Uri.https(baseUrl, '3/movie/$movieId/videos', {
+      'api_key': API_KEY,
+    });
+
+    return _getJson(url).then((json) => json['results']).then(
+        (data) => data.map<Video>((item) => Video.fromJson(item)).toList());
+  }
+
+  Future<List<SearchResult>> getSearchResults(String query) async {
+    var url = Uri.https(netUrl, '/netfilm/fetchSearchMovies', {'title': query});
+
+    List<SearchResult> resultList = [];
+
+    List<MediaItem> list = await _getJson(url, apiKey: NET_API_KEY).then(
+        (data) => data
+            .map<MediaItem>((item) => MediaItem(item, MediaType.db))
+            .where((item) => item.posterPath != "" || item.backdropPath != "")
+            .toList());
+
+    for (var item in list) {
+      resultList.add(SearchResult.fromMediaItem("db", item));
+    }
+
+    return resultList;
+  }
+
+
+*/
 
   /*
   Future<List<MediaItem>> getMoviesForGenreIDs(

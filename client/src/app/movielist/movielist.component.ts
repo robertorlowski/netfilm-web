@@ -1,3 +1,4 @@
+import { Subscription } from "rxjs";
 import { ModalService } from "./../services/modal.service";
 import { ActivatedRoute } from "@angular/router";
 import { AppUtils } from "./../Utils/app_utils";
@@ -9,18 +10,18 @@ import {
   OnInit,
   ElementRef,
   ViewChild,
-  Inject,
+  OnDestroy,
 } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
 
 @Component({
   selector: "app-movielist",
   templateUrl: "./movielist.component.html",
   styleUrls: ["./movielist.component.scss"],
 })
-export class MovielistComponent implements OnInit {
+export class MovielistComponent implements OnInit, OnDestroy {
   public title: string;
   private categoryId: number = NaN;
+  private subscription: Subscription;
   public language: string = "pl";
   public movies: MediaItem[] = [];
   public selectedItem: MediaItem;
@@ -36,44 +37,80 @@ export class MovielistComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private clientCtx: ClientCtx,
     private modalService: ModalService
-  ) {}
+  ) {
+    this.subscription = this.activeRoute.queryParams.subscribe(
+      async (params) => {
+        this.initData();
+        let generID = params["id"];
+
+        if (generID !== NaN && generID != undefined) {
+          this.categoryId = Number(generID);
+          //get title
+          this.title = await this.clientCtx.getGenersNameByKod(this.categoryId);
+          //load movies
+          this.loadMovie();
+        } else {
+          let query = params["query"];
+          this.title = query;
+          this.searchMovie(query);
+        }
+      }
+    );
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe;
+  }
 
   private initData() {
+    this.categoryId = undefined;
     this.isLoading = false;
     this.isEnd = true;
     this.page = 1;
     this.movies = [];
+    this.clientCtx.mediaEvent(new MediaItem());
   }
 
   ngOnInit() {
     this.eParent = this.movielistRef.nativeElement;
+  }
+  searchMovie(query: any) {
+    if (query === undefined || this.isLoading) {
+      return;
+    }
+    this.isLoading = true;
+    this.isEnd = true;
+    this.apiProvider
+      .getProvider(ProviderType.NET)
+      .getSearchResults(query)
+      .subscribe((data: any) => {
+        console.log(data);
+        for (let ooo of data) {
+          this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
+        }
 
-    this.activeRoute.params.subscribe(async (routeParams) => {
-      if (routeParams.id === NaN) {
-        return;
-      }
-      this.initData();
-      this.categoryId = Number(routeParams.id);
-      //get title
-      this.title = await this.clientCtx.getGenersNameByKod(this.categoryId);
-      //load movies
-      this.loadMovie(this.categoryId);
-      //}
-    });
+        if (
+          this.movies.length === (data as []).length &&
+          this.movies.length > 0
+        ) {
+          this.showDetails(this.movies[0]);
+        }
+        this.isLoading = false;
+      });
   }
 
-  posterMediumPath(madia: MediaItem): String {
-    return AppUtils.getPosterMediumPathUrl(madia);
-  }
-
-  loadMovie(id: number) {
+  loadMovie() {
     if (this.categoryId === NaN || this.isLoading) {
       return;
     }
     this.isLoading = true;
     this.apiProvider
       .getProvider(ProviderType.NET)
-      .getMoviesForGenreIDs(this.language, this.page++, [id], "releaseDate")
+      .getMoviesForGenreIDs(
+        this.language,
+        this.page++,
+        [this.categoryId],
+        "releaseDate"
+      )
       .subscribe((data: any) => {
         this.isEnd = (data as []).length === 0;
         for (let ooo of data) {
@@ -91,14 +128,18 @@ export class MovielistComponent implements OnInit {
           //console.log(this.fetchMovieRef.nativeElement.offsetTop);
           //console.log(this.fetchMovieRef.nativeElement.offsetLeft);
           if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
-            this.loadMovie(this.categoryId);
+            this.loadMovie();
           }
         }, 100);
       });
   }
 
+  posterMediumPath(madia: MediaItem): String {
+    return AppUtils.getPosterMediumPathUrl(madia);
+  }
+
   fetchNext() {
-    this.loadMovie(this.categoryId);
+    this.loadMovie();
   }
 
   showDetails(item: MediaItem) {
@@ -115,6 +156,6 @@ export class MovielistComponent implements OnInit {
   }
 
   public onScroll() {
-    this.loadMovie(this.categoryId);
+    this.loadMovie();
   }
 }

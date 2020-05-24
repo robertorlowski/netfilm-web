@@ -4,18 +4,32 @@
     <img class="h-28 w-28 rounded-full mx-auto" src="assets/netfilm.png" />
   </div>
 
-  <ul class="pt-6">
+  <div class="mx-3 w-24 search-container text-center relative">
+    <div class="absolute pin-t py-2 px-1 text-grey-light">
+      <svg (mousedown)="clearSearch()" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+        width="18" height="18">
+        <path class="heroicon-ui"
+          d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z">
+        </path>
+      </svg>
+    </div>
+    <input ref="search" type="text" class="w-40 bg-grey-darkest text-grey-light h-9 pl-8 border-b outline-none"
+      [(ngModel)]="serchValue" (input)="onSearchChange($event.target.value)" />
+  </div>
+
+  <ul class="pt-3">
     <li>
-      <a *ngFor="let item of genres" routerLink="/movielist/{{item.id}}"
+      <a *ngFor="let item of clientCtx.geners" routerLink="/movielist" [queryParams]="{ id: item.id }"
+        (click)="routerChange(item.id)"
         class="block px-3 pt-1 text-grey cursor-pointer hover:bg-grey-darker no-underline">
         <div>
           <fa-icon class="float-left fa pr-2 pt-1" [icon]="faArrowRight"></fa-icon>
-          <div class=" pl-2 text-white text-base">{{ item.name }}</div>
+          <div class="pl-2 text-white text-base">{{ item.name }}</div>
         </div>
       </a>
     </li>
   </ul>
-  <div class="pt-8 h-8">
+  <div class="pt-4 h-8">
     <img class="mx-auto h-4 mb-4" src="assets/tmdb.png" />
   </div>
 </div>
