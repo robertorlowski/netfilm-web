@@ -19,6 +19,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   errorImg: boolean = false;
 
   private exec: any;
+  private execTriller: any;
   private mediaSubscription: Subscription;
   private ytStatusSubscription: Subscription;
 
@@ -108,9 +109,13 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
         data.results.forEach((element: any) => {
           this.video.push(element.key);
         });
-        setTimeout(() => {
+
+        if (this.execTriller) {
+          clearTimeout(this.exec);
+        }
+        this.execTriller = setTimeout(async () => {
           this.playTrailer(true);
-        }, 2000);
+        }, 1000);
       });
   }
 
