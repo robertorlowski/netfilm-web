@@ -1,6 +1,6 @@
 <div class="movie_card" id="bright">
   <div [ngClass]="
-      !errorImg && movie?.backdropPath != ''
+      (!errorImg && movie?.backdropPath != '') || video.length > 0
         ? 'info_section'
         : 'info_section_empty_img'
     ">

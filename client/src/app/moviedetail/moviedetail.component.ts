@@ -65,7 +65,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
 
     this.ytStatusSubscription = this.player.stateChange.subscribe(
       (data: any) => {
-        console.log(data);
+        //console.log(data);
         switch (data.data) {
           case YT.PlayerState.ENDED:
             if (this.videoId < this.video.length) {
@@ -122,11 +122,11 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   public playTrailer(start: boolean) {
     if (start) {
       const vvID = this.video[this.videoId % this.video.length];
-      console.log("---------------------PLAY --------------------");
+      //console.log("---------------------PLAY --------------------");
       this.player.stopVideo();
       this.player.videoId = vvID;
       this.videoId++;
-      this.player.mute();
+      this.player.setVolume(3);
       this.player.playVideo();
     } else {
       this.videoStart = false;
