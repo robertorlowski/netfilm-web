@@ -112,9 +112,12 @@ export class MovielistComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: any) => {
         this.isEnd = (data as []).length === 0;
+        let ccc = [];
         for (let ooo of data) {
-          this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
+          ccc.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
+        this.movies.push(...ccc);
+
         if (
           this.movies.length === (data as []).length &&
           this.movies.length > 0
