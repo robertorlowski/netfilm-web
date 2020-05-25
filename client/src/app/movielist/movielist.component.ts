@@ -30,7 +30,6 @@ export class MovielistComponent implements OnInit, OnDestroy {
   public isEnd: Boolean = true;
   @ViewChild("parent", { static: true }) movielistRef: ElementRef;
   private eParent: any;
-  @ViewChild("fetchMovie", { static: true }) fetchMovieRef: ElementRef;
 
   constructor(
     private apiProvider: ApiMediaProvider,
@@ -125,8 +124,6 @@ export class MovielistComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         //
         setTimeout(() => {
-          //console.log(this.fetchMovieRef.nativeElement.offsetTop);
-          //console.log(this.fetchMovieRef.nativeElement.offsetLeft);
           if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
             this.loadMovie();
           }
@@ -158,4 +155,22 @@ export class MovielistComponent implements OnInit, OnDestroy {
   public onScroll() {
     this.loadMovie();
   }
+
+  /*
+  public playTrailer(start: boolean) {
+
+    if (start) {
+      this.ytPlayerService.load(this.video[this.videoId % this.video.length]);
+      this.videoId++;
+      this.ytPlayerService.play();
+      setTimeout(() => {
+        this.trailerRef.nativeElement.style.visibility = "visible";
+      }, 300);
+    } else {
+      this.ytPlayerService.stop();
+      this.trailerRef.nativeElement.style.visibility = "hidden";
+    }
+    return false;
+  }
+   */
 }

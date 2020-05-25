@@ -1,6 +1,6 @@
 #parent {
   padding-top: 360px;
-  z-index: 5;
+  z-index: 1;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -36,4 +36,32 @@
       justify-content: space-around;
     }
   }
+}
+
+.trailer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.95);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+}
+
+.trailer yt-player {
+  padding: 50px;
+  outline: none;
+}
+
+#video-close {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-size: xx-large;
+  cursor: pointer;
 }

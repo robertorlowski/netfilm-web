@@ -11,6 +11,12 @@
         <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
           <div class="title bg-blue-darker text-white text-sm py-1 px-1 w-40">
             {{ item.title }}
+            <!--
+            <div class="text-white text-lg cursor-pointer">
+              <fa-icon class="float-left float-left fa pr-2 pt-1 far fa-play-circle pr-2 pt-1"></fa-icon>
+              <a href="" (click)="playTrailer(true)">Trailer</a>
+            </div>
+            -->
           </div>
 
           <img class="poster h-56 w-40 bg-blue-darker" [src]="[posterMediumPath(item)]"
@@ -45,3 +51,9 @@
     </button>
   </div>
 </jw-modal>
+
+<!--
+<div #trailer class="trailer">
+  <fa-icon id="video-close" class="fa fas fa-times cursor-pointer" (click)="playTrailer(false)"></fa-icon>
+</div>
+-->

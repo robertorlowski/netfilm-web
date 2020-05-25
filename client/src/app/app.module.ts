@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { MoviedetailComponent } from "./moviedetail/moviedetail.component";
 import { ModalComponent } from "./modal-component/modal-component.component";
+import { YouTubePlayer } from "./Utils/youtube-player";
 
 const routes: Routes = [
   { path: "movielist", component: MovielistComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [
 ];
 @NgModule({
   declarations: [
+    YouTubePlayer,
     AppComponent,
     SidebarComponent,
     MovielistComponent,

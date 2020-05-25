@@ -1,8 +1,7 @@
 import { ClientCtx } from "../model/client_ctx";
-import { Observable } from "rxjs";
-import { ResultGenres, Genres } from "./../model/genres.model";
+import { ResultGenres } from "./../model/genres.model";
 import { ApiMediaProvider, ProviderType } from "./../services/media.providers";
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Router, NavigationExtras } from "@angular/router";
 
