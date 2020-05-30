@@ -1,4 +1,4 @@
-/api/*        http://91.192.2.140:9000/:splat  200
+/api/*        https://91.192.2.140:9000/:splat  200
 /movielist/*  /index.html 200
 /null         /index.html 200
 /*            /index.html 200
