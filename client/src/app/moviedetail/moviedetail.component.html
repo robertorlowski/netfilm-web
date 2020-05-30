@@ -1,6 +1,6 @@
 <div class="movie_card" id="bright">
   <div [ngClass]="
-      (!errorImg && movie?.backdropPath != '') || video.length > 0
+      !errorImg || videoStart
         ? 'info_section'
         : 'info_section_empty_img'
     ">
@@ -21,6 +21,7 @@
       </p>
     </div>
   </div>
+
   <img *ngIf="movie.backdropPath && !videoStart " id="backdropPath" [src]="movie?.getLargePictureUrl()"
     (error)="errorImg = true" />
 

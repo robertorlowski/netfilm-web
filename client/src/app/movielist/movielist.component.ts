@@ -82,7 +82,6 @@ export class MovielistComponent implements OnInit, OnDestroy {
       .getProvider(ProviderType.NET)
       .getSearchResults(query)
       .subscribe((data: any) => {
-        console.log(data);
         for (let ooo of data) {
           this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
@@ -116,7 +115,8 @@ export class MovielistComponent implements OnInit, OnDestroy {
         for (let ooo of data) {
           ccc.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
-        this.movies.push(...ccc);
+        this.movies = ccc;
+        this.eParent.scrollTo(0, 0);
 
         if (
           this.movies.length === (data as []).length &&

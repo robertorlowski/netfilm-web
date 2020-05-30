@@ -34,7 +34,6 @@ const routes: Routes = [
   imports: [
     InfiniteScrollModule,
     RouterModule.forRoot(routes, {
-      anchorScrolling: "enabled",
       scrollPositionRestoration: "enabled",
     }),
     BrowserModule,
