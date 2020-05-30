@@ -10,6 +10,7 @@ import { HttpClient } from "@angular/common/http";
 export class ApiClientNet implements MediaService {
   baseUrl: string = "https://api.themoviedb.org/";
   netUrl: string = "https://netfilm.netlify.app/api/";
+  //netUrl: string = "http://192.168.56.1:9001/";
 
   constructor(private http: HttpClient) {}
 
@@ -41,6 +42,7 @@ export class ApiClientNet implements MediaService {
           page: page.toString(),
           category: sortBy,
           genres: AppUtils.getGenersIsAsStr(genresIds),
+          limit: "200",
         },
       }
     );
@@ -53,6 +55,7 @@ export class ApiClientNet implements MediaService {
       },
       params: {
         title: query,
+        limit: "200",
       },
     });
   }

@@ -24,7 +24,7 @@
   <img *ngIf="movie.backdropPath && !videoStart " id="backdropPath" [src]="movie?.getLargePictureUrl()"
     (error)="errorImg = true" />
 
-  <youtube-player #player videoId="k1uduN-i8R0" width="854" height="480" [playerVars]="playerVars" class="player">
+  <youtube-player #player videoId="_" width="854" height="480" [playerVars]="playerVars" class="player">
   </youtube-player>
 
 </div>

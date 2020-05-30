@@ -6,6 +6,9 @@ export default async function (req: Request, res: Response, db: any) {
   const category =
     req.query.category == undefined ? "popularity" : req.query.category;
 
+  const limit: number =
+    req.query.limit == undefined ? 10 : Number(req.query.limit);
+
   var genres: Array<Number> =
     req.query.genres == undefined
       ? []
@@ -15,8 +18,8 @@ export default async function (req: Request, res: Response, db: any) {
           .map((item) => Number(item));
 
   try {
-    var collection = await db.collection("tmdb_cda_videos");
-    var doc = await collection
+    const collection = await db.collection("tmdb_cda_videos");
+    const doc = await collection
       .find(
         {
           status: "Released",
@@ -33,12 +36,15 @@ export default async function (req: Request, res: Response, db: any) {
           ],
         }
       )
-      .skip(10 * (page - 1))
-      .limit(10)
+      .skip(limit * (page - 1))
+      .limit(limit)
       .toArray();
 
     return res.json(doc);
   } catch (e) {
-    return res.send(e.message);
+    return res.send({
+      status: "error",
+      info: e.message,
+    });
   }
 }

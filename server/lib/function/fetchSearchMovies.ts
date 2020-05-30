@@ -5,9 +5,12 @@ export default async function (req: Request, res: Response, db: any) {
     return res.json([]);
   }
 
+  const limit: number =
+    req.query.limit == undefined ? 100 : Number(req.query.limit);
+
   try {
-    var collection = await db.collection("tmdb_cda_videos");
-    var doc = await collection
+    const collection = await db.collection("tmdb_cda_videos");
+    const doc = await collection
       .find({
         status: "Released",
         $or: [
@@ -16,11 +19,14 @@ export default async function (req: Request, res: Response, db: any) {
         ],
       })
       .sort("Id", 1)
-      .limit(100)
+      .limit(limit)
       .toArray();
 
     return res.json(doc);
   } catch (e) {
-    return res.send(e.message);
+    return res.send({
+      status: "error",
+      info: e.message,
+    });
   }
 }

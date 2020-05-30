@@ -7,6 +7,8 @@
   margin: 0.75rem;
   z-index: 10;
   width: calc(100% - 14rem);
+  border-bottom-width: 0.75rem;
+  border-bottom-color: rgba(34, 41, 47, 1);
 
   .info_section,
   .info_section_empty_img {
