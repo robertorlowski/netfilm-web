@@ -21,7 +21,11 @@ export class SidebarComponent implements OnInit {
     private apiProvider: ApiMediaProvider,
     private router: Router,
     public clientCtx: ClientCtx
-  ) {}
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+  }
 
   ngOnInit() {
     this.apiProvider

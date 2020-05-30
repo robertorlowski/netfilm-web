@@ -29,7 +29,7 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     // close modal on background click
     this.element.addEventListener("click", function (e: any) {
-      if (e.target.className === "jw-modal-background") {
+      if (e.target.className === "jw-modal") {
         modal.close();
       }
     });
@@ -37,7 +37,6 @@ export class ModalComponent implements OnInit, OnDestroy {
     // add self (this modal instance) to the modal service so it's accessible from controllers
     this.modalService.add(this);
     this.element.style.display = "none";
-    document.body.classList.remove("jw-modal-background");
   }
 
   // remove self from modal service when component is destroyed
@@ -50,7 +49,6 @@ export class ModalComponent implements OnInit, OnDestroy {
   open(): void {
     this.element.style.display = "block";
     document.body.classList.add("jw-modal-open");
-    document.body.classList.add("jw-modal-background");
   }
 
   // close modal

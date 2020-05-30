@@ -1,6 +1,6 @@
 <div class="movie_card" id="bright">
   <div [ngClass]="
-      !errorImg || videoStart
+      (!errorImg || videoStart ) && movie.id
         ? 'info_section'
         : 'info_section_empty_img'
     ">
@@ -10,12 +10,14 @@
       <p class="type">{{ geners }}</p>
       <h4>{{ movie?.getReleaseYear() }}</h4>
       <h4>{{ movie?.voteAverage }}&nbsp;</h4>
+      <!--
       <div class="text-white text-lg cursor-pointer">
         <fa-icon class="float-left float-left fa pr-2 pt-1 far fa-play-circle pr-2 pt-1"></fa-icon>
         <a href="" (click)="playTrailer(!videoStart)">Trailer</a>
       </div>
+      -->
     </div>
-    <div class="movie_desc">
+    <div class="movie_desc mt-3">
       <p class="text-sm text-white break-words font-sans">
         {{ movie?.overview }}
       </p>

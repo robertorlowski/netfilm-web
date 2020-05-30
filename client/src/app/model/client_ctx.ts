@@ -9,10 +9,11 @@ export class ClientCtx {
 
   constructor(private apiProvider: ApiMediaProvider) {}
 
-  private scrollSource = new Subject<any>();
-  scrollDource$ = this.scrollSource.asObservable();
-  public scrollEvent(event: any) {
-    this.scrollSource.next(event);
+  private isPlaying = new Subject<Boolean>();
+  isPlaying$ = this.isPlaying.asObservable();
+
+  public playingEvent(event: any) {
+    this.isPlaying.next(event);
   }
 
   private mediaSource = new Subject<MediaItem>();

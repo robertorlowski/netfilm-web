@@ -8,15 +8,9 @@
   <div tabindex="0" *ngFor="let item of movies"
     class="inline-block bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker mr-1 p-3"
     on-focus="showDetails(item)">
-    <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)" (click)="showDetailWindow(item)">
+    <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)" (mouseup)="showDetailWindow(item)">
       <div class="title bg-blue-darker text-white text-sm py-1 px-1 w-40">
         {{ item.title }}
-        <!--
-            <div class="text-white text-lg cursor-pointer">
-              <fa-icon class="float-left float-left fa pr-2 pt-1 far fa-play-circle pr-2 pt-1"></fa-icon>
-              <a href="" (click)="playTrailer(true)">Trailer</a>
-            </div>
-            -->
       </div>
 
       <img class="poster h-56 w-40 bg-blue-darker" [src]="[posterMediumPath(item)]" (error)="item.posterError = true" />
@@ -34,15 +28,21 @@
   </div>
 </div>
 
-
-
 <jw-modal id="video-link" class="jw-modal">
   <div class="mt-1 mx-3">
-    <span class="block text-center text-gray uppercase mb-2 text-white">Filmy</span>
+    <span class="block text-center text-gray uppercase mb-2 text-orange">Filmy</span>
     <span class="my-2 hover:text-blue text-white block text-base" *ngFor="let item of selectedItem?.movieIds">
       <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link')">
         <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
         {{ item.title }} &nbsp; ({{ item.time }}min.)
+      </a>
+    </span>
+    <span *ngIf="videoIDs.length!=0"
+      class="block text-center text-gray uppercase mt-2 mb-2 text-orange">Zwiastuny</span>
+    <span class="my-2 hover:text-blue text-white block text-base" *ngFor="let item of videoIDs">
+      <a [href]="" target="_blank" (click)="playTrailer(true, item)">
+        <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
+        {{ item.name }}
       </a>
     </span>
   </div>
@@ -54,8 +54,8 @@
   </div>
 </jw-modal>
 
-<!--
-<div #trailer class="trailer">
+<div #trailer class="trailer" (click)="playTrailer(false)">
   <fa-icon id="video-close" class="fa fas fa-times cursor-pointer" (click)="playTrailer(false)"></fa-icon>
+  <youtube-player #player videoId="_" width="854" height="480" [playerVars]="playerVars" class="player">
+  </youtube-player>
 </div>
--->

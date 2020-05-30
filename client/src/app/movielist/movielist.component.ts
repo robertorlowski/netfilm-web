@@ -1,3 +1,5 @@
+import { Triller } from "./../model/triller.model";
+import { YouTubePlayer } from "./../Utils/youtube-player";
 import { Subscription } from "rxjs";
 import { ModalService } from "./../services/modal.service";
 import { ActivatedRoute } from "@angular/router";
@@ -24,12 +26,16 @@ export class MovielistComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public language: string = "pl";
   public movies: MediaItem[] = [];
+  public videoIDs: Array<Triller> = [];
   public selectedItem: MediaItem;
   private isLoading: Boolean = false;
   private page: number = 1;
   public isEnd: Boolean = true;
   @ViewChild("parent", { static: true }) movielistRef: ElementRef;
   private eParent: any;
+  @ViewChild("trailer", { static: true }) trailerRef: ElementRef;
+  @ViewChild("player", { static: true }) player: YouTubePlayer;
+  private ytStatusSubscription: Subscription;
 
   constructor(
     private apiProvider: ApiMediaProvider,
@@ -58,7 +64,19 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe;
+    this.ytStatusSubscription.unsubscribe;
   }
+
+  playerVars: YT.PlayerVars = {
+    autoplay: YT.AutoPlay.NoAutoPlay,
+    controls: YT.Controls.ShowLoadPlayer,
+    autohide: YT.AutoHide.HideProgressBar,
+    cc_load_policy: YT.ClosedCaptionsLoadPolicy.ForceOn,
+    iv_load_policy: YT.IvLoadPolicy.Hide,
+    modestbranding: YT.ModestBranding.Modest,
+    rel: YT.RelatedVideos.Hide,
+    showinfo: YT.ShowInfo.Hide,
+  };
 
   private initData() {
     this.categoryId = undefined;
@@ -71,7 +89,19 @@ export class MovielistComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.eParent = this.movielistRef.nativeElement;
+    this.ytStatusSubscription = this.player.stateChange.subscribe(
+      (data: any) => {
+        switch (data.data) {
+          case YT.PlayerState.ENDED:
+            this.clientCtx.playingEvent(false);
+            break;
+          default:
+            break;
+        }
+      }
+    );
   }
+
   searchMovie(query: any) {
     if (query === undefined || this.isLoading) {
       return;
@@ -82,6 +112,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
       .getProvider(ProviderType.NET)
       .getSearchResults(query)
       .subscribe((data: any) => {
+        this.movies = [];
         for (let ooo of data) {
           this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
@@ -147,6 +178,16 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
 
   showDetailWindow(item: MediaItem) {
+    this.apiProvider
+      .getProvider(ProviderType.NET)
+      .getVideos(item.id)
+      .subscribe((data: any) => {
+        this.videoIDs = [];
+        data.results.forEach((element: Triller) => {
+          this.videoIDs.push(element);
+        });
+      });
+
     this.selectedItem = item;
     this.modalService.open("video-link");
   }
@@ -159,21 +200,19 @@ export class MovielistComponent implements OnInit, OnDestroy {
     this.loadMovie();
   }
 
-  /*
-  public playTrailer(start: boolean) {
-
-    if (start) {
-      this.ytPlayerService.load(this.video[this.videoId % this.video.length]);
-      this.videoId++;
-      this.ytPlayerService.play();
+  public playTrailer(start: boolean, video: Triller = undefined) {
+    if (start && video) {
+      this.player.videoId = video.key;
+      this.player.playVideo();
+      this.clientCtx.playingEvent(true);
       setTimeout(() => {
         this.trailerRef.nativeElement.style.visibility = "visible";
       }, 300);
     } else {
-      this.ytPlayerService.stop();
       this.trailerRef.nativeElement.style.visibility = "hidden";
+      this.player.stopVideo();
+      this.clientCtx.playingEvent(false);
     }
     return false;
   }
-   */
 }

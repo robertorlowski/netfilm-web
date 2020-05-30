@@ -21,6 +21,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   private exec: any;
   private execTriller: any;
   private mediaSubscription: Subscription;
+  private playingSubscription: Subscription;
   private ytStatusSubscription: Subscription;
 
   @ViewChild("player", { static: true }) player: YouTubePlayer;
@@ -44,6 +45,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mediaSubscription.unsubscribe;
     this.ytStatusSubscription.unsubscribe;
+    this.playingSubscription.unsubscribe;
   }
 
   ngOnInit() {
@@ -55,6 +57,12 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
         this.exec = setTimeout(async () => {
           await this.init(item);
         }, 300);
+      }
+    );
+
+    this.playingSubscription = this.clientCtx.isPlaying$.subscribe(
+      (isPlaying: Boolean) => {
+        isPlaying ? this.player.pauseVideo() : this.player.playVideo();
       }
     );
 
@@ -75,7 +83,6 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
             }
             break;
           case YT.PlayerState.UNSTARTED:
-            this.player.playVideo();
             break;
           case YT.PlayerState.PLAYING:
             setTimeout(() => {
@@ -90,6 +97,10 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   }
 
   async init(item: MediaItem) {
+    if (item.id === this.movie.id) {
+      return;
+    }
+
     this.errorImg = false;
     this.movie = item;
     this.video = [];
@@ -120,6 +131,11 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   }
 
   public playTrailer(start: boolean) {
+    const vvID = this.video[this.videoId % this.video.length];
+    if (start && this.player.videoId == vvID && this.videoStart) {
+      return;
+    }
+
     if (start) {
       const vvID = this.video[this.videoId % this.video.length];
       //console.log("---------------------PLAY --------------------");
