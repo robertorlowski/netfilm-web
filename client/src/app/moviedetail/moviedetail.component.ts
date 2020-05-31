@@ -56,7 +56,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
         }
         this.exec = setTimeout(async () => {
           await this.init(item);
-        }, 300);
+        }, 800);
       }
     );
 

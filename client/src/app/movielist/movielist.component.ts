@@ -35,7 +35,17 @@ export class MovielistComponent implements OnInit, OnDestroy {
   private eParent: any;
   @ViewChild("trailer", { static: true }) trailerRef: ElementRef;
   @ViewChild("player", { static: true }) player: YouTubePlayer;
-  private ytStatusSubscription: Subscription;
+
+  playerVars: YT.PlayerVars = {
+    autoplay: YT.AutoPlay.NoAutoPlay,
+    controls: YT.Controls.ShowLoadPlayer,
+    autohide: YT.AutoHide.HideProgressBar,
+    cc_load_policy: YT.ClosedCaptionsLoadPolicy.ForceOn,
+    iv_load_policy: YT.IvLoadPolicy.Hide,
+    modestbranding: YT.ModestBranding.Modest,
+    rel: YT.RelatedVideos.Hide,
+    showinfo: YT.ShowInfo.Hide,
+  };
 
   constructor(
     private apiProvider: ApiMediaProvider,
@@ -53,7 +63,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
           //get title
           this.title = await this.clientCtx.getGenersNameByKod(this.categoryId);
           //load movies
-          this.loadMovie();
+          this.fetchMovie();
         } else {
           let query = params["query"];
           this.title = query;
@@ -64,19 +74,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe;
-    this.ytStatusSubscription.unsubscribe;
   }
-
-  playerVars: YT.PlayerVars = {
-    autoplay: YT.AutoPlay.NoAutoPlay,
-    controls: YT.Controls.ShowLoadPlayer,
-    autohide: YT.AutoHide.HideProgressBar,
-    cc_load_policy: YT.ClosedCaptionsLoadPolicy.ForceOn,
-    iv_load_policy: YT.IvLoadPolicy.Hide,
-    modestbranding: YT.ModestBranding.Modest,
-    rel: YT.RelatedVideos.Hide,
-    showinfo: YT.ShowInfo.Hide,
-  };
 
   private initData() {
     this.categoryId = undefined;
@@ -89,17 +87,6 @@ export class MovielistComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.eParent = this.movielistRef.nativeElement;
-    this.ytStatusSubscription = this.player.stateChange.subscribe(
-      (data: any) => {
-        switch (data.data) {
-          case YT.PlayerState.ENDED:
-            this.clientCtx.playingEvent(false);
-            break;
-          default:
-            break;
-        }
-      }
-    );
   }
 
   searchMovie(query: any) {
@@ -117,17 +104,14 @@ export class MovielistComponent implements OnInit, OnDestroy {
           this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
 
-        if (
-          this.movies.length === (data as []).length &&
-          this.movies.length > 0
-        ) {
+        if (this.movies.length > 0) {
           this.showDetails(this.movies[0]);
         }
         this.isLoading = false;
       });
   }
 
-  loadMovie() {
+  fetchMovie() {
     if (this.categoryId === NaN || this.isLoading) {
       return;
     }
@@ -142,35 +126,21 @@ export class MovielistComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: any) => {
         this.isEnd = (data as []).length === 0;
-        let ccc = [];
+        this.movies = [];
         for (let ooo of data) {
-          ccc.push(MediaItem.getMediaItem(ooo, MediaType.db));
+          this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
-        this.movies = ccc;
         this.eParent.scrollTo(0, 0);
 
-        if (
-          this.movies.length === (data as []).length &&
-          this.movies.length > 0
-        ) {
+        if (this.movies.length > 0) {
           this.showDetails(this.movies[0]);
         }
         this.isLoading = false;
-        //
-        setTimeout(() => {
-          if (this.eParent.scrollHeight <= this.eParent.clientHeight) {
-            this.loadMovie();
-          }
-        }, 100);
       });
   }
 
   posterMediumPath(madia: MediaItem): String {
     return AppUtils.getPosterMediumPathUrl(madia);
-  }
-
-  fetchNext() {
-    this.loadMovie();
   }
 
   showDetails(item: MediaItem) {
@@ -197,20 +167,20 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
 
   public onScroll() {
-    this.loadMovie();
+    //this.fetchMovie();
   }
 
   public playTrailer(start: boolean, video: Triller = undefined) {
     if (start && video) {
       this.player.videoId = video.key;
-      this.player.playVideo();
       this.clientCtx.playingEvent(true);
+      this.player.playVideo();
       setTimeout(() => {
         this.trailerRef.nativeElement.style.visibility = "visible";
       }, 300);
     } else {
-      this.trailerRef.nativeElement.style.visibility = "hidden";
       this.player.stopVideo();
+      this.trailerRef.nativeElement.style.visibility = "hidden";
       this.clientCtx.playingEvent(false);
     }
     return false;

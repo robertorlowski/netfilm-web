@@ -30,7 +30,7 @@ export class AppUtils {
   }
 
   public static getPosterMediumPathUrl(media: MediaItem): string {
-    if (media.posterPath) {
+    if (media.posterPath != undefined && media.posterPath != "") {
       return AppUtils.getMediumPictureUrl(media.posterPath);
     } else {
       return AppUtils.getMediumPictureUrl(media.backdropPath);
@@ -38,7 +38,7 @@ export class AppUtils {
   }
 
   public static getBackdropMediumPathUrl(media: MediaItem): string {
-    if (media.posterPath) {
+    if (media.posterPath != undefined && media.posterPath != "") {
       return AppUtils.getMediumPictureUrl(media.posterPath);
     } else {
       return AppUtils.getMediumPictureUrl(media.backdropPath);

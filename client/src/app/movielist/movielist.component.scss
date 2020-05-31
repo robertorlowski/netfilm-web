@@ -34,22 +34,22 @@
   }
 }
 
-.trailer {
+#trailer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  background: rgba(0, 0, 0, 0.95);
+  visibility: hidden;
+}
+
+#player {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10000;
-  background: rgba(0, 0, 0, 0.95);
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden;
-}
-
-.trailer yt-player {
   padding: 50px;
   outline: none;
 }

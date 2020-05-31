@@ -106,8 +106,9 @@
 }
 
 .info_section {
-  background-image: linear-gradient(to right, black, black, black, black, transparent, transparent, transparent);
-
+  background-image: linear-gradient(to right,
+      black, black, black, black, black, black,
+      transparent, transparent, transparent, transparent, transparent);
 }
 
 .info_section_empty_img {
