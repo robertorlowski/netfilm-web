@@ -34,7 +34,7 @@
     <span class="block text-center text-gray uppercase mb-2 text-orange">Filmy</span>
     <span class="my-2 hover:text-blue text-white block text-base" *ngFor="let item of selectedItem?.movieIds">
       <a [href]="[item.url]" target="_blank" (click)="closeModal('video-link')">
-        <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
+        <i class="fa fa-play-circle fa-lg cursor-pointer" aria-hidden="true"></i>&nbsp;
         {{ item.title }} &nbsp; ({{ item.time }}min.)
       </a>
     </span>
@@ -42,7 +42,7 @@
       class="block text-center text-gray uppercase mt-2 mb-2 text-orange">Zwiastuny</span>
     <span class="my-2 hover:text-blue text-white block text-base cursor-pointer" *ngFor="let item of videoIDs">
       <a [href]="" target="_blank" (click)="playTrailer(true, item)">
-        <i class="fa fa-play-circle fa-lg" aria-hidden="true"></i>&nbsp;
+        <i class="fa fa-play-circle fa-lg cursor-pointer" aria-hidden="true"></i>&nbsp;
         {{ item.name }}
       </a>
     </span>
