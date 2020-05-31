@@ -52,6 +52,11 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.mediaSubscription = this.clientCtx.mediaSource$.subscribe(
       (item: MediaItem) => {
+        if (!item.id) {
+          this.init(item).then();
+          return;
+        }
+
         if (this.exec) {
           clearTimeout(this.exec);
         }

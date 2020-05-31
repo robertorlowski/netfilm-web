@@ -1,6 +1,10 @@
 <div id="parent" #parent class="h-screen ml-3 my-3" infiniteScroll (scrolled)="onScroll()" [scrollWindow]="false"
   [immediateCheck]="true" [alwaysCallback]="true">
 
+  <button tabindex="1" class="text-white w-full h-1" (click)="fetchMovie(-1)"
+    [hidden]="page <= 1 || movies.length == 0">
+    <i class="fa fa-angle-double-up w-full" aria-hidden="true"></i>
+  </button>
   <div class="mr-3 container space-y-0 text-white uppercase pb-2 pl-1 w-screen">
     {{ title }}
   </div>
@@ -22,11 +26,9 @@
     </div>
   </div>
 
-  <div class="mr-3 inline container space-y-0 text-white w-screen uppercase pb-2 px-1 w-full">
-    <button tabindex="1" class="text-white w-full m-1" (click)="fetchMovie()" [hidden]="isEnd">
-      <i class="p-3 fa fa-angle-double-down" aria-hidden="true"></i>
-    </button>
-  </div>
+  <button tabindex="1" class="text-white w-full" (click)="fetchMovie(1)" [hidden]="isEnd || movies.length == 0">
+    <i class="p-4 m-1 fa fa-angle-double-down" aria-hidden="true"></i>
+  </button>
 </div>
 
 <jw-modal id="video-link" class="jw-modal">
@@ -53,7 +55,8 @@
       Zamknij
     </button>
   </div>
-  <div id="trailer" #trailer class="trailer" (click)="playTrailer(false)">
+
+  <div id="trailer" modal-footer #trailer class="trailer" (click)="playTrailer(false)">
     <fa-icon id="video-close" class="fa fas fa-times cursor-pointer" (click)="playTrailer(false)"></fa-icon>
     <youtube-player id="player" #player videoId="_" width="854" height="480" [playerVars]="playerVars" class="player">
     </youtube-player>

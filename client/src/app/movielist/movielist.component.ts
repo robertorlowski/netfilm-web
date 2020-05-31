@@ -29,7 +29,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
   public videoIDs: Array<Triller> = [];
   public selectedItem: MediaItem;
   private isLoading: Boolean = false;
-  private page: number = 1;
+  public page: number = 1;
   public isEnd: Boolean = true;
   @ViewChild("parent", { static: true }) movielistRef: ElementRef;
   private eParent: any;
@@ -63,7 +63,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
           //get title
           this.title = await this.clientCtx.getGenersNameByKod(this.categoryId);
           //load movies
-          this.fetchMovie();
+          this.fetchMovie(0);
         } else {
           let query = params["query"];
           this.title = query;
@@ -111,17 +111,22 @@ export class MovielistComponent implements OnInit, OnDestroy {
       });
   }
 
-  fetchMovie() {
+  fetchMovie(step: number = 1) {
     if (this.categoryId === NaN || this.isLoading) {
       return;
     }
+    if (this.page + step < 1) {
+      return;
+    }
+    this.clientCtx.mediaEvent(new MediaItem());
     this.isLoading = true;
     this.movies = [];
+    this.page = this.page + step;
     this.apiProvider
       .getProvider(ProviderType.NET)
       .getMoviesForGenreIDs(
         this.language,
-        this.page++,
+        this.page,
         [this.categoryId],
         "releaseDate"
       )
@@ -168,7 +173,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
 
   public onScroll() {
-    this.fetchMovie();
+    //this.fetchMovie();
   }
 
   public playTrailer(start: boolean, video: Triller = undefined) {

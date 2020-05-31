@@ -41,7 +41,7 @@ export class ApiClientNet implements MediaService {
           page: page.toString(),
           category: sortBy,
           genres: AppUtils.getGenersIsAsStr(genresIds),
-          limit: "200",
+          limit: "100",
         },
       }
     );
@@ -54,7 +54,7 @@ export class ApiClientNet implements MediaService {
       },
       params: {
         title: query,
-        limit: "200",
+        limit: "100",
       },
     });
   }

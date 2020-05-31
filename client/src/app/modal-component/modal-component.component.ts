@@ -48,7 +48,8 @@ export class ModalComponent implements OnInit, OnDestroy {
   // open modal
   open(): void {
     this.element.style.display = "block";
-    document.body.classList.add("jw-modal-open");
+    document.body.classList.add("jw-modal-background");
+    //document.body.classList.add("jw-modal-open");
   }
 
   // close modal

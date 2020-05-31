@@ -1,7 +1,8 @@
 <div class="jw-modal">
+  <ng-content select="[modal-header]"></ng-content>
   <div id="modal-body" class="jw-modal-body bg-black">
     <ng-content></ng-content>
   </div>
-
+  <ng-content select="[modal-footer]"></ng-content>
 </div>
 <div id="background" class="jw-modal-background"></div>
