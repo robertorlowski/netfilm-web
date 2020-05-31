@@ -116,6 +116,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
       return;
     }
     this.isLoading = true;
+    this.movies = [];
     this.apiProvider
       .getProvider(ProviderType.NET)
       .getMoviesForGenreIDs(
@@ -126,7 +127,8 @@ export class MovielistComponent implements OnInit, OnDestroy {
       )
       .subscribe((data: any) => {
         this.isEnd = (data as []).length === 0;
-        this.movies = [];
+
+        this.isLoading = false;
         for (let ooo of data) {
           this.movies.push(MediaItem.getMediaItem(ooo, MediaType.db));
         }
@@ -135,7 +137,6 @@ export class MovielistComponent implements OnInit, OnDestroy {
         if (this.movies.length > 0) {
           this.showDetails(this.movies[0]);
         }
-        this.isLoading = false;
       });
   }
 
