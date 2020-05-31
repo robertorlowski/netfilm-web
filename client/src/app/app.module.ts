@@ -35,6 +35,7 @@ const routes: Routes = [
     InfiniteScrollModule,
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: "enabled",
+      onSameUrlNavigation: "reload",
     }),
     BrowserModule,
     HttpClientModule,

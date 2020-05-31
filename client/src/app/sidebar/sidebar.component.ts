@@ -54,7 +54,6 @@ export class SidebarComponent implements OnInit {
   routerChange(id: number) {
     this.lastId = id;
     this.serchValue = "";
-    console.log(id);
   }
 
   onSearchChange(searchValue: string): void {

@@ -57,7 +57,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
         }
         this.exec = setTimeout(async () => {
           await this.init(item);
-        }, 800);
+        }, 1000);
       }
     );
 
@@ -75,7 +75,6 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
 
     this.ytStatusSubscription = this.player.stateChange.subscribe(
       (data: any) => {
-        //console.log(data);
         switch (data.data) {
           case YT.PlayerState.ENDED:
             if (this.videoId < this.video.length) {
@@ -83,8 +82,6 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
             } else {
               this.playTrailer(false);
             }
-            break;
-          case YT.PlayerState.UNSTARTED:
             break;
           case YT.PlayerState.PLAYING:
             setTimeout(() => {
@@ -102,14 +99,13 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
     if (item.id === this.movie.id) {
       return;
     }
+    this.playTrailer(false);
 
     this.isPlaying = false;
     this.errorImg = false;
     this.movie = item;
     this.video = [];
     this.videoId = 0;
-
-    this.playTrailer(false);
 
     if (!item.id) {
       return;
@@ -139,8 +135,6 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
       if (this.player.videoId == vvID && this.videoStart) {
         return;
       }
-
-      //console.log("---------------------PLAY --------------------");
       this.player.stopVideo();
       this.player.videoId = vvID;
       this.videoId++;
