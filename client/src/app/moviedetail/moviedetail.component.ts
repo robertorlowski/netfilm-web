@@ -23,6 +23,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   private mediaSubscription: Subscription;
   private playingSubscription: Subscription;
   private ytStatusSubscription: Subscription;
+  private isPlaying: Boolean = false;
 
   @ViewChild("player", { static: true }) player: YouTubePlayer;
 
@@ -61,8 +62,9 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
     );
 
     this.playingSubscription = this.clientCtx.isPlaying$.subscribe(
-      (isPlaying: Boolean) => {
-        isPlaying ? this.player.pauseVideo() : this.player.playVideo();
+      (playing: Boolean) => {
+        this.isPlaying = playing;
+        this.isPlaying ? this.player.pauseVideo() : this.player.playVideo();
       }
     );
 
@@ -101,6 +103,7 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.isPlaying = false;
     this.errorImg = false;
     this.movie = item;
     this.video = [];
@@ -131,19 +134,18 @@ export class MoviedetailComponent implements OnInit, OnDestroy {
   }
 
   public playTrailer(start: boolean) {
-    const vvID = this.video[this.videoId % this.video.length];
-    if (start && this.player.videoId == vvID && this.videoStart) {
-      return;
-    }
-
     if (start) {
       const vvID = this.video[this.videoId % this.video.length];
+      if (this.player.videoId == vvID && this.videoStart) {
+        return;
+      }
+
       //console.log("---------------------PLAY --------------------");
       this.player.stopVideo();
       this.player.videoId = vvID;
       this.videoId++;
       this.player.setVolume(3);
-      this.player.playVideo();
+      this.isPlaying ? this.player.pauseVideo() : this.player.playVideo();
     } else {
       this.videoStart = false;
       this.player.stopVideo();

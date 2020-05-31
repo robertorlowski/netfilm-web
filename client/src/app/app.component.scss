@@ -1,1 +1,8 @@
-
+#main {
+  position: fixed;
+  left: 12rem;
+  width: calc(100% - 12rem);
+  padding-left: 0;
+  z-index: 10;
+  height: 100%;
+}

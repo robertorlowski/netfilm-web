@@ -1,5 +1,5 @@
-<div id="parent" #parent class="fixed block h-screen ml-3 my-3" infiniteScroll (scrolled)="onScroll()"
-  [scrollWindow]="false" [immediateCheck]="true" [alwaysCallback]="true">
+<div id="parent" #parent class="h-screen ml-3 my-3" infiniteScroll (scrolled)="onScroll()" [scrollWindow]="false"
+  [immediateCheck]="true" [alwaysCallback]="true">
 
   <div class="mr-3 container space-y-0 text-white uppercase pb-2 pl-1 w-screen">
     {{ title }}
@@ -8,7 +8,8 @@
   <div tabindex="0" *ngFor="let item of movies"
     class="inline-block bg-grey-darkest cursor-pointer hover:bg-grey-darker focus:bg-grey-darker mr-1 p-3"
     on-focus="showDetails(item)">
-    <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)" (mouseup)="showDetailWindow(item)">
+    <div id="movie_card" class="h-56 w-40" on-mouseover="showDetails(item)"
+      (mouseup)="showDetailWindow('video-link',item)">
       <div class="title bg-blue-darker text-white text-sm py-1 px-1 w-40">
         {{ item.title }}
       </div>
@@ -52,10 +53,10 @@
       Zamknij
     </button>
   </div>
-</jw-modal>
+  <div id="trailer" #trailer class="trailer" (click)="playTrailer(false)">
+    <fa-icon id="video-close" class="fa fas fa-times cursor-pointer" (click)="playTrailer(false)"></fa-icon>
+    <youtube-player id="player" #player videoId="_" width="854" height="480" [playerVars]="playerVars" class="player">
+    </youtube-player>
+  </div>
 
-<div id="trailer" #trailer class="trailer" (click)="playTrailer(false)">
-  <fa-icon id="video-close" class="fa fas fa-times cursor-pointer" (click)="playTrailer(false)"></fa-icon>
-  <youtube-player id="player" #player videoId="_" width="854" height="480" [playerVars]="playerVars" class="player">
-  </youtube-player>
-</div>
+</jw-modal>

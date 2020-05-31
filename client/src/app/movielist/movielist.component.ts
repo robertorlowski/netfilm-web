@@ -147,19 +147,19 @@ export class MovielistComponent implements OnInit, OnDestroy {
     this.clientCtx.mediaEvent(item);
   }
 
-  showDetailWindow(item: MediaItem) {
+  showDetailWindow(id: string, item: MediaItem) {
+    this.videoIDs = [];
+    this.selectedItem = item;
+
     this.apiProvider
       .getProvider(ProviderType.NET)
       .getVideos(item.id)
       .subscribe((data: any) => {
-        this.videoIDs = [];
         data.results.forEach((element: Triller) => {
           this.videoIDs.push(element);
         });
+        this.modalService.open(id);
       });
-
-    this.selectedItem = item;
-    this.modalService.open("video-link");
   }
 
   closeModal(id: string) {
@@ -167,7 +167,7 @@ export class MovielistComponent implements OnInit, OnDestroy {
   }
 
   public onScroll() {
-    //this.fetchMovie();
+    this.fetchMovie();
   }
 
   public playTrailer(start: boolean, video: Triller = undefined) {
