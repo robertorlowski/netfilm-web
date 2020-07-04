@@ -10,7 +10,8 @@ class App {
   private client: any;
 
   private mongodb_url: String =
-    "mongodb://mfilm:Proste123!@ds229438.mlab.com:29438/mfilm";
+    //"mongodb://mfilm:Proste123!@ds229438.mlab.com:29438/mfilm";
+    "mongodb://mfilm:Proste123!@91.192.2.140:27017/mfilm";
 
   constructor() {
     this.express = express();
